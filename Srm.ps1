@@ -1,11 +1,4 @@
-﻿[CmdletBinding()]
-param(
-    $SrmServer,
-    $SrmServers,
-    $SrmCredential
-)
-
-function Initialize-SrmApi($SrmServer) {
+function Initialize-SrmApi($SrmServer, $SrmCredential = Get-Credential) {
     $SrmConnection = Connect-SrmServer -SrmServerAddress $SrmServer -Credential $SrmCredential
     $SrmApi = $SrmConnection.ExtensionData
 
@@ -83,7 +76,8 @@ function Get-AllInventoryMappings($ProtectionGroups) {
             New-Object -TypeName PsObject -Property @{
                 Id = $_.MoRef.ToString()
                 Server = [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')
-                Name = (Get-??? -Id $_.MoRef.ToString() -Server [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Name
+                # TODO: find how to dereference these folders from ListInventoryMappings
+                #Name = (Get-??? -Id $_.MoRef.ToString() -Server [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Name
                 SrmServer = $SrmServer
             }
         }
@@ -91,7 +85,8 @@ function Get-AllInventoryMappings($ProtectionGroups) {
             New-Object -TypeName PsObject -Property @{
                 Id = $_.MoRef.ToString()
                 Server = [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')
-                Name = (Get-??? -Id $_.MoRef.ToString() -Server [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Name
+                # TODO: dereference these networks from ListInventoryMappings
+                #Name = (Get-??? -Id $_.MoRef.ToString() -Server [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Name
                 SrmServer = $SrmServer
             }
         }
