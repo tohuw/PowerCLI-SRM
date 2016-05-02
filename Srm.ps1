@@ -85,8 +85,7 @@ function Get-AllInventoryMappings($ProtectionGroups) {
             New-Object -TypeName PsObject -Property @{
                 Id = $_.MoRef.ToString()
                 Server = [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')
-                # TODO: dereference these networks from ListInventoryMappings
-                #Name = (Get-??? -Id $_.MoRef.ToString() -Server [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Name
+                Name = (Get-VDPortGroup -Id $_.MoRef.ToString() -Server [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Name
                 SrmServer = $SrmServer
             }
         }
