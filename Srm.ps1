@@ -64,27 +64,27 @@ function Get-AllInventoryMappings($ProtectionGroups) {
     $InventoryMappingsData = $SrmApi.Protection.ListInventoryMappings()
     $InventoryMappings = @()
     $InventoryMappings += New-Object -TypeName PsObject -Property @{
-        Pools = $InventoryMappings.Pools | %{
+        Pools = $InventoryMappingsData.Pools | %{
             New-Object -TypeName PsObject -Property @{
                 Id = $_.MoRef.ToString()
                 Server = [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')
-                Name = (Get-ResourcePool -Id $_.MoRef.ToString() -Server [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Name
+                Name = Get-ResourcePool -Id $_.MoRef.ToString() -Server (([regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Value).Name
                 SrmServer = $SrmServer
             }
         }
-        Folders = $InventoryMappings.Folders | %{
+        Folders = $InventoryMappingsData.Folders | %{
             New-Object -TypeName PsObject -Property @{
                 Id = $_.MoRef.ToString()
                 Server = [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')
-                Name = (Get-Folder -Id $_.MoRef.ToString() -Server [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Name
+                Name = Get-Folder -Id $_.MoRef.ToString() -Server (([regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Value).Name
                 SrmServer = $SrmServer
             }
         }
-       Networks = $InventoryMappings.Networks | %{
+       Networks = $InventoryMappingsData.Networks | %{
             New-Object -TypeName PsObject -Property @{
                 Id = $_.MoRef.ToString()
-                Server = [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')
-                Name = (Get-VDPortGroup -Id $_.MoRef.ToString() -Server [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Name
+                Server = ([regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+'))
+                Name = Get-VDPortGroup -Id $_.MoRef.ToString() -Server (([regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Value).Name
                 SrmServer = $SrmServer
             }
         }
