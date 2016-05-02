@@ -76,8 +76,7 @@ function Get-AllInventoryMappings($ProtectionGroups) {
             New-Object -TypeName PsObject -Property @{
                 Id = $_.MoRef.ToString()
                 Server = [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')
-                # TODO: find how to dereference these folders from ListInventoryMappings
-                #Name = (Get-??? -Id $_.MoRef.ToString() -Server [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Name
+                Name = (Get-Folder -Id $_.MoRef.ToString() -Server [regex]::Match($_.Client.ServiceUrl,'(?<=\/\/)\w+')).Name
                 SrmServer = $SrmServer
             }
         }
