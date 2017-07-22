@@ -4,7 +4,6 @@
 Use the built-in PowerCLI SRM support. This was from a simpler time when no such support existed. If you're stranded in that sort of version, Ben Meadowcroft wrote better support than I ever managed out of this project. It remains merely as a historical curiosity.
 
 ##What is this?
-
 This project is **a PowerShell script module for the VMware Site Recovery Manager API**. VMware Site Recovery Manager (SRM) has an API for interfacing and retrieving data, and sending certain commands. The end objective of this project is to provide appropriate PowerShell cmdlets for each significant capability of the SRM API (versions 5.8 and above).
 
 ##Current Status
